@@ -1,9 +1,17 @@
+using Blogger.Web.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//DbContext Injection
+builder.Services.AddDbContext<BloggerDbContext>(option =>
+option.UseSqlServer(builder.Configuration.GetConnectionString("BloggerDbConnectionString")));
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
